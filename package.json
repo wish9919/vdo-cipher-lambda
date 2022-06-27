@@ -1,0 +1,22 @@
+{
+  "name": "vdo-cipher-api",
+  "version": "0.0.1",
+  "author": {
+    "name": "wish9919",
+    "email": "vishvantha321@gmail.com"
+  },
+  "dependencies": {
+    "@middy/core": "^3.1.0",
+    "@middy/http-cors": "^3.1.0",
+    "@middy/http-json-body-parser": "^3.1.0",
+    "axios": "^0.27.2",
+    "lambda-api": "^0.11.2"
+  },
+  "scripts": {
+    "dev": "sls offline",
+    "deploy": "sls deploy"
+  },
+  "devDependencies": {
+    "serverless-offline": "^8.8.0"
+  }
+}

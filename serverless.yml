@@ -1,0 +1,37 @@
+service: vdo-cipher-demo
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: us-east-1
+  environment:
+    VDO_CIPHER_SECRET: ${file(./config.${opt:stage, 'dev'}.json):VDO_CIPHER_SECRET}
+
+plugins:
+  - "serverless-offline"
+
+functions:
+  api:
+    handler: handler.api
+    events:
+      - httpApi:
+          path: /api/videos/{id}/otp
+          method: post
+      - httpApi:
+          path: /api/videos
+          method: get
+      - httpApi:
+          path: /api/videos/{id}
+          method: get
+      - httpApi:
+          path: /api/videos
+          method: put
+  #    Define function environment variables here
+# resources:
+#   Resources:
+#     NewResource:
+#       Type: AWS::S3::Bucket
+#       Properties:
+#         BucketName: vdo-cipher-demo-bucket
