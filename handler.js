@@ -107,6 +107,25 @@ api.put(`/videos/`, async (req, res) => {
   }
 });
 
+api.put(`/videos/:id`, async (req, res) => {
+  const id = req.params.id;
+
+  // check id required
+  if (!id) {
+    return res.status(400).json(sendErrorResponse("Bad request"));
+  }
+
+  try {
+    // request credentials from vdo cipher
+    const data = await instance.put(`/videos/${id}`).then((res) => res.data);
+
+    res.status(200).json(sendSuccessResponse(data));
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(sendErrorResponse(error?.response?.data?.message));
+  }
+});
+
 // get otp and playbackInfo by video id
 api.post(`/videos/:id/otp`, async (req, res) => {
   const id = req.params.id;

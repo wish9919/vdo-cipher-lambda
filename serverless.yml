@@ -28,6 +28,9 @@ functions:
       - httpApi:
           path: /api/videos
           method: put
+      - httpApi:
+          path: /api/videos/{id}
+          method: put
   #    Define function environment variables here
 # resources:
 #   Resources:
