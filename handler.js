@@ -1,7 +1,9 @@
 "use strict";
 const createAPI = require("lambda-api");
 const { middify } = require("./middify");
-const axios = require("axios");
+
+const axios = require("./utils/axios");
+
 const {
   sendErrorResponse,
   sendSuccessResponse,
@@ -10,36 +12,13 @@ const {
 const baseUrl = "/api/";
 const api = createAPI({ base: baseUrl });
 
-const VDO_API = "https://dev.vdocipher.com/api";
-const API_SECRET = "Apisecret " + process.env.VDO_CIPHER_SECRET;
-
-// axios instance
-const instance = axios.create({
-  baseURL: VDO_API,
-});
-
-instance.interceptors.request.use(
-  function (config) {
-    config.headers = {
-      Accept: "application/json",
-      Authorization: API_SECRET,
-    };
-
-    return config;
-  },
-  function (error) {
-    // Do something with request error
-    return Promise.reject(error);
-  }
-);
-
 // get videos
 api.get("/videos", async (req, res) => {
   const page = req.query.page;
   const limit = req.query.limit;
 
   try {
-    const data = await instance
+    const data = await axios
       .get(`/videos`, {
         params: {
           page: page || 1,
@@ -64,7 +43,7 @@ api.get("/videos/:id", async (req, res) => {
   }
 
   try {
-    const data = await instance.get(`/videos/${id}`).then((res) => res.data);
+    const data = await axios.get(`/videos/${id}`).then((res) => res.data);
 
     res.status(200).json(sendSuccessResponse(data));
   } catch (error) {
@@ -90,7 +69,7 @@ api.put(`/videos/`, async (req, res) => {
 
   try {
     // request credentials from vdo cipher
-    const data = await instance
+    const data = await axios
       .put(
         `/videos`,
         {},
@@ -117,7 +96,7 @@ api.put(`/videos/:id`, async (req, res) => {
 
   try {
     // request credentials from vdo cipher
-    const data = await instance.put(`/videos/${id}`).then((res) => res.data);
+    const data = await axios.put(`/videos/${id}`).then((res) => res.data);
 
     res.status(200).json(sendSuccessResponse(data));
   } catch (error) {
@@ -137,7 +116,7 @@ api.post(`/videos/:id/otp`, async (req, res) => {
 
   try {
     // get otp from vdo cipher
-    const data = await instance
+    const data = await axios
       .post(`/videos/${id}/otp`, {
         ...req.body,
       })
