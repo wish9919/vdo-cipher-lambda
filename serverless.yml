@@ -16,21 +16,26 @@ functions:
   api:
     handler: handler.api
     events:
-      - httpApi:
+      - http:
           path: /api/videos/{id}/otp
           method: post
-      - httpApi:
+          cors: true
+      - http:
           path: /api/videos
           method: get
-      - httpApi:
+          cors: true
+      - http:
           path: /api/videos/{id}
           method: get
-      - httpApi:
+          cors: true
+      - http:
           path: /api/videos
           method: put
-      - httpApi:
+          cors: true
+      - http:
           path: /api/videos/{id}
           method: put
+          cors: true
   #    Define function environment variables here
 # resources:
 #   Resources:
