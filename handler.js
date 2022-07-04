@@ -139,7 +139,7 @@ api.post(`/videos/:id/otp`, async (req, res) => {
     // get otp from vdo cipher
     const data = await instance
       .post(`/videos/${id}/otp`, {
-        ttl: 300,
+        ...req.body,
       })
       .then((res) => res.data);
 
