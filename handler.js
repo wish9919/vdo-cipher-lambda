@@ -34,6 +34,7 @@ api.get("/videos", async (req, res) => {
   }
 });
 
+// get single video
 api.get("/videos/:id", async (req, res) => {
   const id = req.params.id;
 
@@ -86,6 +87,7 @@ api.put(`/videos/`, async (req, res) => {
   }
 });
 
+// obtain upload credentials for single exisiting video
 api.put(`/videos/:id`, async (req, res) => {
   const id = req.params.id;
 
